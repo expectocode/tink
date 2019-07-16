@@ -16,21 +16,12 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-# pylint: disable=g-statement-before-imports
-# pylint: disable=g-import-not-at-top
-try:
-  from __future__ import google_type_annotations
-except ImportError:
-  print('Could not import google_type_annotations, continuing anyway')
-# pylint: enable=g-statement-before-imports
 
 import binascii
 from typing import Text
 
 # Special imports
 # import tink
-
-# pylint: enable=g-import-not-at-top
 
 
 class AwsKmsAead(object):
