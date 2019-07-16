@@ -21,10 +21,10 @@ import binascii
 from typing import Text
 
 # Special imports
-# import tink
+import tink
 
 
-class AwsKmsAead(object):
+class AwsKmsAead(tink.Aead):
   """Forwards encryption/decryption requests to a key managed by AWS KMS.
 
   Associated data is stored under the key 'associatedData' in hexadecimal
