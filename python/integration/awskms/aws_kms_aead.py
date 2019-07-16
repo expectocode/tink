@@ -25,17 +25,31 @@ import tink
 
 
 class AwsKmsAead(tink.Aead):
-  """Forwards encryption/decryption requests to a key managed by AWS KMS.
+  """Authenticated encryption with associated data (see base class).
+
+  An implementation of AEAD that forwards encryption/decryption requests to a
+  key managed by AWS KMS.
 
   Associated data is stored under the key 'associatedData' in hexadecimal
   format, since AWS KMS expects a string -> string map.
   """
 
   def __init__(self, key_arn: Text, aws_client: 'botocore.client.KMS'):
+    """Initialises an AwsKmsAead.
+
+    Args:
+      key_arn: Amazon Resource Name of a crypto key in AWS KMS, without the
+        aws-mks:// prefix.
+      aws_client: AWS KMS Client object of the correct region.
+    """
     self._key_arn = key_arn
     self._aws_client = aws_client
 
   def encrypt(self, plaintext: bytes, associated_data: bytes) -> bytes:
+    """Encrypts plaintext with associated_data (see base class).
+
+    Encryption is performed using this object's AWS KMS client.
+    """
     hex_aad = binascii.hexlify(associated_data).decode('utf-8')
 
     response = self._aws_client.encrypt(
@@ -46,9 +60,13 @@ class AwsKmsAead(tink.Aead):
         })
 
     return response['CiphertextBlob']
-    # TODO(tanujdhir) Finish implementation
+    # TODO(tanujdhir) Error handling
 
   def decrypt(self, ciphertext: bytes, associated_data: bytes) -> bytes:
+    """Decrypts plaintext with associated_data (see base class).
+
+    Decryption is performed using this object's AWS KMS client.
+    """
     hex_aad = binascii.hexlify(associated_data).decode('utf-8')
 
     response = self._aws_client.decrypt(
@@ -58,4 +76,4 @@ class AwsKmsAead(tink.Aead):
         })
 
     return response['Plaintext']
-    # TODO(tanujdhir) Finish implementation
+    # TODO(tanujdhir) Error handling
