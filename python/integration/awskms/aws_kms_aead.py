@@ -52,8 +52,7 @@ class AwsKmsAead(tink.Aead):
     hex_aad = binascii.hexlify(associated_data).decode('utf-8')
 
     response = self._aws_client.decrypt(
-        KeyId=self._key_arn,
-        CiphertextBlob=plaintext,
+        CiphertextBlob=ciphertext,
         EncryptionContext={
             'associatedData': hex_aad,
         })
