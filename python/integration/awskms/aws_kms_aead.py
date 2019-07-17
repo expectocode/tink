@@ -30,8 +30,8 @@ class AwsKmsAead(tink.Aead):
   An implementation of AEAD that forwards encryption/decryption requests to a
   key managed by AWS KMS.
 
-  Associated data is stored under the key 'associatedData' in hexadecimal
-  format, since AWS KMS expects a string -> string map.
+  Associated data is stored under the key 'associatedData' in
+  hexadecimal-encoded format, since AWS KMS expects a string -> string map.
   """
 
   def __init__(self, key_arn: Text, aws_client: 'botocore.client.KMS'):
