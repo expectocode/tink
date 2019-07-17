@@ -23,6 +23,7 @@ from tink.python import daead
 from tink.python import hybrid
 from tink.python import mac
 from tink.python import signature
+from tink.python import integration
 from tink.python.core import tink_config
 
 
