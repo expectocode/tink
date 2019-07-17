@@ -15,7 +15,6 @@
 """Tink package."""
 from __future__ import absolute_import
 from __future__ import division
-from __future__ import google_type_annotations
 from __future__ import print_function
 
 from tink.python import aead
